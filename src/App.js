@@ -18,18 +18,11 @@ class App extends Component {
 		showPersons: false
 	}
 
-	switchNameHandler = (newName) => {
+	deletePersonHandler = (index) => {
+		const persons = this.state.persons;
+		persons.splice(index, 1);
 		this.setState({
-			persons: [
-				{
-					name: newName,
-					age: 26
-				},
-				{
-					name: 'Zooop',
-					age: 200
-				}
-			]
+			persons: persons
 		})
 	}
 
@@ -64,28 +57,34 @@ class App extends Component {
 			borderRadius: '4px'
 		};
 
+		let persons = null;
+
+		if (this.state.showPersons) {
+			persons = (
+				<div>
+					{this.state.persons.map((person, index) => {
+						return <Person
+							click={() => this.deletePersonHandler(index)}
+							name={person.name}
+							age={person.age} />
+					})}
+				</div>
+
+
+			);
+		}
+
 		return (
+
 			<div className="App">
 				<h1>I am a react app</h1>
 
 				<button
 					style={style}
 					onClick={this.togglePersonsHandler}>Toggle persons</button>
-				{this.state.showPersons ? <div>
-					<Person
-						name={this.state.persons[0].name}
-						age={this.state.persons[0].age}
-						click={this.switchNameHandler.bind(this, 'Ridont')}
-						changed={this.nameChangedHandler}
-
-					>Zoop boop shloop</Person>
-					<Person
-						name={this.state.persons[1].name}
-						age={this.state.persons[1].age}
-					>Scoop whoop</Person>
-				</div> : <h1>You have no persons</h1>}
-
+				{persons}
 			</div>
+
 		);
 	}
 }
