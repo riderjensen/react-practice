@@ -14,7 +14,8 @@ class App extends Component {
 				name: 'Zooop',
 				age: 20
 			}
-		]
+		],
+		showPersons: false
 	}
 
 	switchNameHandler = (newName) => {
@@ -47,7 +48,12 @@ class App extends Component {
 		})
 	}
 
-
+	togglePersonsHandler = () => {
+		const doesShow = this.state.showPersons;
+		this.setState({
+			showPersons: !doesShow
+		})
+	}
 
 	render() {
 		const style = {
@@ -62,18 +68,22 @@ class App extends Component {
 			<div className="App">
 				<h1>I am a react app</h1>
 
-				<button style={style} onClick={() => this.switchNameHandler('Zoop boop')}>Change name</button>
-				<Person
-					name={this.state.persons[0].name}
-					age={this.state.persons[0].age}
-					click={this.switchNameHandler.bind(this, 'Ridont')}
-					changed={this.nameChangedHandler}
+				<button
+					style={style}
+					onClick={this.togglePersonsHandler}>Toggle persons</button>
+				{this.state.showPersons ? <div>
+					<Person
+						name={this.state.persons[0].name}
+						age={this.state.persons[0].age}
+						click={this.switchNameHandler.bind(this, 'Ridont')}
+						changed={this.nameChangedHandler}
 
-				>Zoop boop shloop</Person>
-				<Person
-					name={this.state.persons[1].name}
-					age={this.state.persons[1].age}
-				>Scoop whoop</Person>
+					>Zoop boop shloop</Person>
+					<Person
+						name={this.state.persons[1].name}
+						age={this.state.persons[1].age}
+					>Scoop whoop</Person>
+				</div> : <h1>You have no persons</h1>}
 
 			</div>
 		);
