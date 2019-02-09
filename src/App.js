@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import Radium from 'radium';
 
 import Person from './Person/Person';
 
@@ -51,16 +52,25 @@ class App extends Component {
 
 	render() {
 		const style = {
-			backgroundColor: 'white',
+			backgroundColor: 'green',
 			font: 'inherit',
 			border: '1px solid blue',
 			padding: '8px',
-			borderRadius: '4px'
+			borderRadius: '4px',
+			color: 'white',
+			':hover': {
+				backgroundColor: 'rebeccaPurple'
+			}
 		};
 
 		let persons = null;
 
 		if (this.state.showPersons) {
+			style.backgroundColor = 'red';
+			style[':hover'] = {
+				backgroundColor: 'pink'
+			}
+
 			persons = (
 				<div>
 					{this.state.persons.map((person, index) => {
@@ -77,10 +87,19 @@ class App extends Component {
 			);
 		}
 
+		const classes = [];
+
+		if (this.state.persons.length <= 2) {
+			classes.push('red')
+		}
+		if (this.state.persons.length <= 1) {
+			classes.push('bold');
+		}
+
 		return (
 
 			<div className="App">
-				<h1>I am a react app</h1>
+				<h1 className={classes.join(' ')}>I am a react app</h1>
 
 				<button
 					style={style}
@@ -92,4 +111,4 @@ class App extends Component {
 	}
 }
 
-export default App;
+export default Radium(App);
