@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './App.css';
+import scopedClasses from './App.css';
 
 import Person from './Person/Person';
 
@@ -50,21 +50,12 @@ class App extends Component {
 	}
 
 	render() {
-		const style = {
-			backgroundColor: 'green',
-			font: 'inherit',
-			border: '1px solid blue',
-			padding: '8px',
-			borderRadius: '4px',
-			color: 'white',
-		};
 
 		let persons = null;
 
+		let btnClass = '';
+
 		if (this.state.showPersons) {
-			style.backgroundColor = 'red';
-
-
 			persons = (
 				<div>
 					{this.state.persons.map((person, index) => {
@@ -79,6 +70,8 @@ class App extends Component {
 
 
 			);
+
+			btnClass = scopedClasses.red;
 		}
 
 		const classes = [];
@@ -91,11 +84,11 @@ class App extends Component {
 		}
 
 		return (
-			<div className="App">
+			<div className={scopedClasses.App}>
 				<h1 className={classes.join(' ')}>I am a react app</h1>
 
 				<button
-					style={style}
+					className={btnClass}
 					onClick={this.togglePersonsHandler}>Toggle persons</button>
 				{persons}
 			</div>

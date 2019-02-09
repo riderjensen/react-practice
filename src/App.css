@@ -9,3 +9,16 @@
 .bold {
     font-weight: bold;
 }
+
+.App button {
+    padding: 16px;
+    background-color: rebeccapurple;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    color: white;
+}
+
+.App button:hover {
+    color: rebeccapurple;
+    background-color: #fff;
+}
