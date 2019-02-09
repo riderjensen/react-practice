@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './App.css';
+import scopedClasses from './App.css';
 
 import Person from './Person/Person';
 
@@ -50,15 +50,10 @@ class App extends Component {
 	}
 
 	render() {
-		const style = {
-			backgroundColor: 'white',
-			font: 'inherit',
-			border: '1px solid blue',
-			padding: '8px',
-			borderRadius: '4px'
-		};
 
 		let persons = null;
+
+		let btnClass = '';
 
 		if (this.state.showPersons) {
 			persons = (
@@ -75,19 +70,28 @@ class App extends Component {
 
 
 			);
+
+			btnClass = scopedClasses.red;
+		}
+
+		const classes = [];
+
+		if (this.state.persons.length <= 2) {
+			classes.push('red')
+		}
+		if (this.state.persons.length <= 1) {
+			classes.push('bold');
 		}
 
 		return (
-
-			<div className="App">
-				<h1>I am a react app</h1>
+			<div className={scopedClasses.App}>
+				<h1 className={classes.join(' ')}>I am a react app</h1>
 
 				<button
-					style={style}
+					className={btnClass}
 					onClick={this.togglePersonsHandler}>Toggle persons</button>
 				{persons}
 			</div>
-
 		);
 	}
 }
