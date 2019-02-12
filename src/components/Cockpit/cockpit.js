@@ -1,8 +1,30 @@
-import React from 'react';
+import React , { useEffect } from 'react';
 
 import assignedClasses from './cockpit.css'
 
 const cockpit = (props) => {
+	useEffect(() => {
+		console.log('[Cockpit.js] useEffect')
+	})
+
+	// can have as many useEffect as you want
+
+
+	// runs once
+	useEffect(() => {
+		console.log('[Cockpit.js] useEffect')
+		return () => {
+			console.log('I run before a first creation and just before a deletion of this item')
+		}
+	}, [])
+
+	// runs anytime you change the data that is passed in the array
+	useEffect(() => {
+		console.log('[Cockpit.js] useEffect')
+		return () => {
+			console.log('I run after use effect ')
+		}
+	}, ['bam'])
 
 	const classes = [];
 	let btnClass = '';
