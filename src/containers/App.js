@@ -3,7 +3,7 @@ import scopedClasses from './App.css';
 
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/cockpit';
-import WithClass from '../hoc/WithClass';
+import withClass from '../hoc/withClass';
 
 class App extends Component {
 	constructor(props) {
@@ -94,7 +94,7 @@ class App extends Component {
 		}
 
 		return (
-			<WithClass classes={scopedClasses.App}>
+			<React.Fragment>
 				<Cockpit
 					title={this.props.appTitle}
 					showpersons={this.state.showPersons}
@@ -102,9 +102,9 @@ class App extends Component {
 					clicked={this.togglePersonsHandler}
 				/>
 				{persons}
-			</WithClass>
+			</React.Fragment>
 		);
 	}
 }
 
-export default App;
+export default withClass(App, scopedClasses.App);
