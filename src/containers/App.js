@@ -5,20 +5,29 @@ import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/cockpit';
 
 class App extends Component {
-	state = {
-		persons: [
-			{
-				id: 'asdf',
-				name: 'Rider',
-				age: 23
-			},
-			{
-				id: 'sfhs',
-				name: 'Zooop',
-				age: 20
-			}
-		],
-		showPersons: false
+	constructor(props) {
+		super(props);
+		console.log('[App.js] constructor');
+		this.state = {
+			persons: [
+				{
+					id: 'asdf',
+					name: 'Rider',
+					age: 23
+				},
+				{
+					id: 'sfhs',
+					name: 'Zooop',
+					age: 20
+				}
+			],
+			showPersons: false
+		}
+	}
+
+	static getDerivedStateFromProps(props, state) {
+		console.log('[App.js] getDerivedStateFromProps', props);
+		return state;
 	}
 
 	deletePersonHandler = (index) => {
@@ -50,7 +59,13 @@ class App extends Component {
 		})
 	}
 
+	componentDidMount() {
+		console.log('[App.js] componentDidMount');
+
+	}
+
 	render() {
+		console.log('[App.js] render');
 
 		let persons = null;
 
