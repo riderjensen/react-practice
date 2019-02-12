@@ -4,6 +4,7 @@ import scopedClasses from './App.css';
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/cockpit';
 import withClass from '../hoc/withClass';
+import AuthContext from '../context/auth-context';
 
 class App extends Component {
 	constructor(props) {
@@ -23,7 +24,8 @@ class App extends Component {
 				}
 			],
 			showPersons: false,
-			changeCounter : 0
+			changeCounter : 0,
+			authenticated: false
 		}
 	}
 
@@ -77,6 +79,12 @@ class App extends Component {
 		console.log('[App.js] componentDidUpdate');
 	}
 
+	loginHandler = () => {
+		this.setState({
+			authenticated: true
+		})
+	}
+
 	render() {
 		console.log('[App.js] render');
 
@@ -99,13 +107,19 @@ class App extends Component {
 
 		return (
 			<React.Fragment>
-				<Cockpit
-					title={this.props.appTitle}
-					showpersons={this.state.showPersons}
-					personsLength={this.state.persons.length}
-					clicked={this.togglePersonsHandler}
-				/>
-				{persons}
+				<AuthContext.Provider value={{
+					authenticated: this.state.authenticated,
+					login: this.loginHandler
+				}}>
+					<Cockpit
+						title={this.props.appTitle}
+						showpersons={this.state.showPersons}
+						personsLength={this.state.persons.length}
+						clicked={this.togglePersonsHandler}
+					/>
+					{persons}
+				</AuthContext.Provider>
+				
 			</React.Fragment>
 		);
 	}

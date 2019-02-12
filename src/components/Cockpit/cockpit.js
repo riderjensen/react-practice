@@ -1,10 +1,16 @@
-import React , { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import assignedClasses from './cockpit.css'
+import AuthContext from '../../context/auth-context';
 
 const cockpit = (props) => {
+
+
+	const toggleBtnRef = useRef(null);
+
 	useEffect(() => {
 		console.log('[Cockpit.js] useEffect')
+		
 	})
 
 	// can have as many useEffect as you want
@@ -13,6 +19,8 @@ const cockpit = (props) => {
 	// runs once
 	useEffect(() => {
 		console.log('[Cockpit.js] useEffect')
+		toggleBtnRef.current.click();
+
 		return () => {
 			console.log('I run before a first creation and just before a deletion of this item')
 		}
@@ -45,7 +53,14 @@ const cockpit = (props) => {
 			<h1 className={classes.join(' ')}>{props.title}</h1>
 			<button
 				className={btnClass}
-				onClick={props.clicked}>Toggle persons</button>
+				onClick={props.clicked} 
+				ref={toggleBtnRef}>Toggle persons
+				
+				</button>
+			<AuthContext.Consumer>
+				{context => <button onClick={context.login}>Log In</button>}
+			</AuthContext.Consumer>
+				
 		</div>
 	);
 }
