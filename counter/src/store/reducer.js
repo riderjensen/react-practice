@@ -1,28 +1,43 @@
+import * as actionTypes from './actions';
+
 const initialState = {
-	counter: 0
+	counter: 0,
+	results: []
 }
 
 export default function (state = initialState, action) {
-	if (action.type === 'INCREMENT') {
-		return {
-			counter: state.counter + 1
-		}
-	}
-	if (action.type === 'DECREMENT') {
-		return {
-			counter: state.counter - 1
-		}
+	switch (action.type) {
+		case actionTypes.INCREMENT:
+			const newState = Object.assign({}, state);
+			newState.counter = state.counter + 1;
+			return newState;
+		case actionTypes.DECREMENT:
+			return {
+				...state,
+				counter: state.counter - 1
+			}
+		case actionTypes.ADD:
+			return {
+				...state,
+				counter: state.counter + action.val
+			}
+		case actionTypes.SUB:
+			return {
+				...state,
+				counter: state.counter - action.val
+			}
+		case actionTypes.STORE_RESULT:
+			return {
+				...state,
+				results: state.results.concat({ id: new Date(), value: state.counter })
+			}
+		case actionTypes.DELETE_RESULT:
+			const updatedArray = state.results.filter((result, index) => result.id !== action.resultElId);
+			return {
+				...state,
+				results: updatedArray
+			}
 	}
 
-	if (action.type === 'ADD') {
-		return {
-			counter: state.counter + 5
-		}
-	}
-	if (action.type === 'SUB') {
-		return {
-			counter: state.counter - 5
-		}
-	}
 	return state;
 }
