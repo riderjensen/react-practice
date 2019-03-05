@@ -17,7 +17,8 @@ export default function (state = initialState, action) {
 				...state,
 				results: updatedArray
 			}
+		default:
+			return state;
 	}
 
-	return state;
 }
